@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-#this script will calculate the users age in seconds and factor in leap years
-=======
 ##############################################
 #             by Jason Whyttes               #
 #  this script will calculate the users age  #
@@ -11,6 +8,7 @@
 #   Enter day you were born     -            #
 #   Enter month you were born   -            #
 #   Enter year you were born    -            #
+#   Please use numbers          -            #
 #                                            #
 #   What time were you born     -            #
 #                                            #
@@ -37,21 +35,39 @@ from calendar import isleap
 #5 - year has 365 days
 #we are going to use 24 hour time so we do not need to think about AM/PM conversion later on except on if user enters with AM/PM
 curTime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-"""
+
+#gets user info for birthday, checks input for type and length, max 31, we will check values later on
 def userInfo():
+    lstOfMonths['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER','1','2','3','4','5','6','7','8','9','10','11','12','01','02','03','04','05','06','07','08','09','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
     print('-----------How old are you?-----------\n\n')
     userDay = raw_input("Enter day you were born     - ")
+    while True:
+        try:
+            toInt = int(userDay)
+            if toInt <= 31 and toInt >= 0:
+                userDay = toInt
+                break
+            else:
+                userDay = raw_input("Please use a valid date     - ")
+        except ValueError:
+            userDay = raw_input("Please use numbers          - ")
     userMonth = raw_input("Enter month you were born   - ")
+    #while True:
     userYear = raw_input("Enter year you were born    - ")
     print("\n")
     userTime = raw_input("What time were you born     - ")
     print("\n")
-    return userDay,userMonth,userYear,userTime
-
-print(userInfo())
-"""
+    return [userDay,userMonth,userYear,userTime]
 
 
 
+userInput = userInfo()
+#checks if the input exists in 'history' if not it will re-run the userInfo funciton
+def checkDayExists(day,month,year):
+    print(userInput)
 
->>>>>>> workOnCalAgeInSeconds
+v = checkDayExists(userInput[0],userInput[1],userInput[2])
+
+
+
+
