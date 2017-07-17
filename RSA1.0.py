@@ -66,12 +66,21 @@ def getRandomPrime(l,h):
     
     return [randRange1, randRange2]
     
-    
+def RSACompute(p,q):
+    n = p*q
+    oen = (p-1)*(q-1)
+    return [n,oen]
+
+def RSASelect(e):
+    return e
+
+def RSADetermin(d):
+    return d
+
 bits = (bitRange(2048))
 randomPrimes = (getRandomPrime(bits[0],bits[1]))
 #print(randomPrimes[0] * randomPrimes[1])
 print(is_prime(randomPrimes[0]))
 print(is_prime(randomPrimes[1]))
-n = randomPrimes[0] * randomPrimes[1]
+n = RSACompute(randomPrimes[0], randomPrimes[1])
 print (n)
-
