@@ -1,0 +1,42 @@
+from fractions import gcd
+import math as math
+def egcd(a, b):
+    x,y, u,v = 0,1, 1,0
+    while a != 0:
+        q, r = b//a, b%a
+        m, n = x-u*q, y-v*q
+        b,a, x,y, u,v = a,r, u,v, m,n
+    gcd = b
+    return gcd, x, y
+#get primes, n and phi
+p = 163723453537750071164679153219431319024559472899202174902033998551803895001670343592078815200022324064955862104634687379209857883815806255138396330130271220910923763701476634525334384919372349524838686013397562494623595540256515772370710516390366110400152396549070359770768094569327696991538647472173301859383
+q = 168441624178355116010847003507704374780049471602709702006722301264184290640114856684151644020380244584364021252696543779769078928029480567125044111735893315206495418856222057760508473604880713928928042263960267102268577294631639660467181960153360791636439144790563448703495467462256937915171180292098703974211
+
+n = p * q
+phin = (q-1) * (p-1)
+#lowest e is 3, will check later
+e = 3
+
+# message
+m = 527
+print('message ' + str(m))
+# gets d and checks e is 1
+gcd, a, b = egcd(e,phin)
+while True:
+    if b == 0:
+        e += 1
+        gcd, a, b = egcd(e,phin)
+    else:
+        break
+d = a
+print(gcd,a,b)
+# checks d is not a negative
+if d < 0:
+    d+=phin
+# gets encrypted message
+c = pow(m,e,n)
+print('Encrypy '+str(c))
+#---------------
+m = pow(c,d,n)
+print('Decrypy ' + str(m))
+# gets decrypted message
