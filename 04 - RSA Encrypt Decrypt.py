@@ -115,17 +115,26 @@ def getKey(l,h):  # gets random primes from bit range
     return [KU,KR]
 
 def encrypt(m,e,n,l):
-    c = pow(m,e,n) # encrypt using public key and message
-    print('Encrypting with RSA'+ str(l) + ' : ' + str(c))
-    return c
+    ct = []
+    for i in range(0, len(m)):
+        group = m[i]
+        num = ord(group) * 2048
+        c = pow(num,e,n) # encrypt using public key and message
+        ct.append(c)
+    print('Encrypting with RSA'+ str(l) + ' : ' + str(ct))
+    return ct
 
-def decrypt(c,d,n):
-    m = pow(c,d,n) # decrypt using cypher text and private key
-    print('Decryption : ' + str(m))
+def decrypt(ct,d,n):
+    pt = ''
+    for c in ct:
+        m = pow(c,d,n) # decrypt using cypher text and private key
+        c = int(m/2048)
+        pt += chr(c)
+    print('Decryption : ' + pt)
     return m
 
 def main():# main function, gets input for bit range and creates keys (encrypts and decrypts for examples)
-    m = int(input('(MESSAGE) - Enter a number without spaces.\n> '))
+    m = input('Message to encrypt.\n> ')
     RSA_lvl = bitRange()
     keys = getKey(RSA_lvl[0],RSA_lvl[1])
     c = encrypt(m,keys[0][0],keys[0][1],RSA_lvl[2])
